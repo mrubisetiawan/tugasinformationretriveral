@@ -1,41 +1,40 @@
-<?php 
-    $katarubi = "Hello World";
-	echo "Tugas 1 <br><br>";
-    echo $katarubi;
-    echo "<br><br>----- akhir tugas1 ----- <br><br>";
-	echo "Tugas 2 <br><br>";
-$server = "localhost" ;
-$username = "id8990051_ifrubi" ;
-$password = "ifrubi" ;
-$database = "id8990051_akademik";
-mysql_connect($server,$username,$password) or die ("Koneksi database gagal");
-mysql_select_db($database) or die ("Database tidak tersedia");
-	$sql="SELECT mahasiswa.nim, mahasiswa.nama, mahasiswa.prodi, nilai.nim, nilai.kdmk, matakuliah.nmmk FROM mahasiswa, nilai, matakuliah WHERE mahasiswa.nim=nilai.nim and nilai.kdmk=matakuliah.kdmk";
-	$result=mysql_query($sql);
-								echo "
-								<table border='1'>
-									<thead>
-										<tr>
-											<th>No</th>
-											<th>NIM</th>
-											<th>Nama</th>
-											<th>Prodi</th>
-											<th>Kode MK</th>
-											<th>Nama MK</th>
-											<th>Nilai</th>
-										</tr>
-									</thead>";
-	while($data = mysql_fetch_array($result)){
-	$i++;
-								echo "<tbody>
-										<tr>
-											<td>".$i."</td>
-											<td>".$data[nim]."</td>
-											<td>".$data[nama]."</td>
-											<td>".$data[prodi]."</td>
-											<td>".$data[kdmk]."</td>
-											<td>".$data[nmmk]."</td>
-											<td>".$data[nilai]."</td>
-										</tr>
-									</tbody>";}
+<?php
+require_once('Enhanced_CS.php');
 ?>
+<?php
+require_once('Enhanced_CS.php');
+?>
+<html>
+<head>
+	<title>Mesin Pencari</title>
+</head>
+<body align="center">
+<center>
+<h3>TUGAS INFORMATION RETRIEVAL</h3>
+<h3>UNIVERSITAS STIKUBANK SEMARANG</h3>
+<h4> Menu : </h4>
+<a href="upload.php"><input type="button" value="Upload File"/></a><br/><br/>
+<a href="hasil_tokenisasi.php"><input type="button" value="Hasil Tokenisasi"/></a><br/><br/>
+<a href="query.php"><input type="button" value="Query Boolean"/></a><br/><br/>
+<a href="download.php"><input type="button" value="Download File"/></a><br/>
+<br/>
+<br/>
+<form method="post" action="">
+<input type="text" name="kata" id="kata" size="20" value="<?php if(isset($_POST['kata'])){ echo $_POST['kata']; }else{ echo '';}?>">
+<input class="btnForm" type="submit" name="submit" value="Cari Kata Dasar"/>
+</form>
+<?php
+if(isset($_POST['kata'])){
+	$teksAsli = $_POST['kata'];
+	echo "Teks asli : ".$teksAsli.'<br/>';
+	$stemming = Enhanced_CS($teksAsli);
+	echo "Kata dasar : ".$stemming.'<br/>';
+}
+?><br/>
+<h3>Oleh : </h3>
+<h3>M. Rubi Setiawan (17.01.65.0007)</h3>
+<h3>Modestus Modo (17.01.65.0002)</h3>
+<h3></h3>
+</body>
+</center>
+</html>
